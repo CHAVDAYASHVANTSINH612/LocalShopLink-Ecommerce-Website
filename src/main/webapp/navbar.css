@@ -1,0 +1,179 @@
+@charset "ISO-8859-1";
+
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body {
+    height: 100vh;
+}
+
+
+nav {
+    display: flex;
+    flex-direction: row;
+
+    background-color:#287FF0;
+    color: white;
+
+   font-size:15px;
+
+
+    /* box-shadow: inset 0px -4px 20px -9px white; */
+
+    /* position: sticky;
+    top: 0px;
+    bottom: 0px; */
+
+}
+
+nav #head {
+
+    margin: 20px 32px;
+
+}
+
+
+nav ul li {
+
+    list-style: none;
+    margin: 13px 12px;
+    padding: 2px 0px;
+
+}
+
+nav ul{
+    display: flex;
+}
+
+nav li a {
+    text-decoration: none;
+    color: white;
+    margin: 8px 7px;
+    padding: 5px 8px;
+    
+}
+
+#category{
+    color: white;
+    text-decoration: none;
+}
+#category:hover{
+    color: rgb(54, 57, 59);
+}
+
+nav li a:hover {
+
+    background-color: white;
+    color: rgb(54, 57, 59);
+    border-radius: 7px;
+    
+    text-decoration: none;
+
+
+}
+
+
+
+#search-form{
+   padding-top: 17px;
+}
+
+#search-box{
+   width: 40vw;
+   height: 40px;
+   /* border: 5px solid black; */
+   border-radius: 15px;
+   padding-left: 20px;
+
+   box-shadow: 2px 3px 15px black ;
+
+}
+#search-button{
+
+    height: 30px;
+    width: 70px;
+    margin-left: -76px;
+    background-color: #388E3C;
+    /* border: 5px solid black; */
+    border-radius: 12px;
+    /* box-shadow: 2px 3px 15px black ; */
+
+    /* font-weight: bold; */
+    color:white;
+
+}
+
+#search-button:hover{
+
+    box-shadow: 2px 3px 30px grey;
+    padding-bottom:3px;
+    
+    
+}
+
+
+
+#home{
+    margin-left: 30px;
+}
+
+.left-item{
+    margin-top: 20px;
+}
+
+
+
+
+@media only screen and (max-width: 925px) {
+   
+    body{
+   width:100vw;
+  }
+
+   nav{
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       width: 100%;
+   }
+
+   nav ul{
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+   }
+
+   nav ul li {
+
+    list-style: none;
+    margin: 4px 22px;
+    padding: 0px 0px;
+
+
+}
+
+#home{
+    margin-top:12px;
+    margin-left: 20px;
+}
+
+#search-box{
+    padding-left: 10px;
+    font-size: 17px;
+}
+.carousel-img{
+    height: 50vh;
+    size-adjust: auto;
+   
+}
+
+
+}
