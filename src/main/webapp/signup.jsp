@@ -29,8 +29,8 @@
             
            
 
-            <div class="row mt-2 style="  width:75vw"  style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);">
-                <div class="col-md-4 offset-4 ">
+            <div class="row mt-2"   style="padding-left:39%">
+                <div class="col-md-5">
                 
                  <%@include file="SuccessFailMessage.jsp" %>
 
@@ -43,35 +43,37 @@
 
                         </div>
 
-                        <div class="form-group  mt-4">
+                        <div class="form-group  mt-2">
                             <label for="password">Password</label><span style="color: red; font-size: 20px;">*</span>
                             <input type="password" name="password" class="form-control" id="password"
                                 aria-describedby="emailHelp" placeholder="Enter password" required>
                         </div>
 
-                        <div class="form-group  mt-4">
-                            <label for="address">Address</label>
+                        <div class="form-group  mt-2">
+                            <label for="address">Address</label> <span
+                                style="color: red; font-size: 20px;">*</span>
                             <textarea class="form-control" id="address" name="address" rows="3"
-                                placeholder="enter full address "></textarea>
-                            <label for="address">Pincode</label>
+                                placeholder="Enter full address " required></textarea>
+                                
+                            <label for="address">Pincode</label><span
+                                style="color: red; font-size: 20px;">*</span>
                             <input class="form-control" type="number" id="pincode" name="pincode"
-                                style="width:200px; font-size:20px">
+                                placeholder="Enter pincode"  required>
 
                         </div>
-                        <div class="form-group  mt-4">
-                            <label for="phonenumber">Phone Number</label>
+                        <div class="form-group  mt-2">
+                            <label for="phonenumber">Phone Number</label><span
+                                style="color: red; font-size: 20px;">*</span>
                             <input type="number" name="phonenumber" class="form-control" id="phonenumber"
-                                style="width:300px" aria-describedby="emailHelp" placeholder="Enter Phone number">
+                                 aria-describedby="emailHelp" placeholder="Enter Phone number" required>
                         </div>
                        <br>
                        
                      <a href="login.jsp">if already registered click here</a>
-                        <div class="container mt-4 text-center">
-                            <button type="submit" class="btn btn-outline-success">Register</button>
+                        <div class="container mt-2 text-center">
+                            <button type="submit" class="btn btn-success">Register</button>
                             <button class="btn btn-outline-warning m-lg-4 ">Reset</button>
                         </div>
-
-
 
 
 

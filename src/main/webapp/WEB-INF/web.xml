@@ -4,28 +4,11 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-  	<servlet-name>Controller</servlet-name>
-  	<display-name>Controller</display-name>
-  	<description></description>
-  	<servlet-class>com.Servlets.Controller</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>AddServlet</servlet-name>
-  	<display-name>AddServlet</display-name>
-  	<description></description>
-  	<servlet-class>com.Servlets.AddServlet</servlet-class>
-  </servlet>
- 
- 
-  <servlet-mapping>
-  	<servlet-name>Controller</servlet-name>
-  	<url-pattern>/Controller</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>AddServlet</servlet-name>
-  	<url-pattern>/AddServlet</url-pattern>
-  </servlet-mapping>
 
+  
+  
+
+ 
+ 
   
 </web-app>

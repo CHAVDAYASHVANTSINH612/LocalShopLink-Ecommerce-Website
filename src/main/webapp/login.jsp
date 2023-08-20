@@ -12,18 +12,20 @@
 <body>
    <%@include file="navbar.jsp" %>
    
-  
+   
+ 
  
   <h1 class="text-center mt-0 mb-3">Login here </h1>
    
 
-            <div class="row mt-2 center" style=" box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); width:100vw">
+            <div class="row mt-2 " style="width:100vw; padding-left:39%">
              
-                <div class="col-md-3 offset-5 ">
+                <div class="col-md-5">
                 
               <%@include file="SuccessFailMessage.jsp" %>
 
-                    <form action="login" method="post">
+                 <div>
+                    <form action="login" method="post" >
                         <div class="form-group mt-4">
                             <label for="exampleInputEmail1">Username(Email)</label><span
                                 style="color: red; font-size: 20px;">*</span>
@@ -43,11 +45,14 @@
                      <a href="signup.jsp">if not registered click here</a>
                         
                          <div class="container mt-4 text-center">
-                            <button type="submit" class="btn btn-outline-primary">Login</button>
+                            <button type="submit" class="btn btn-primary">Login</button>
                             
                         </div>
+                        </form>
                         
-
+                 </div>
+                 </div>
+                 </div>
 
 
 </body>

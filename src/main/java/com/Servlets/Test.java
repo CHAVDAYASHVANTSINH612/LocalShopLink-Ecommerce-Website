@@ -40,7 +40,7 @@ public class Test {
 //		System.out.println("cant add product to database");
 //	}
 	
-	ArrayList<ProductDAO> pd= p.getProductsByCategoryId(1);
+	ArrayList<ProductDAO> pd= p.getProducts();
 	
 	System.out.println(pd.toString());
 	

@@ -157,6 +157,38 @@ public Boolean addUser(  String userName , String userPassword) {
 		
 	}
 
+
+      public int getNumOfUsers() {
+            try {
+		
+          	   	   Class.forName("com.mysql.cj.jdbc.Driver");
+          		   Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/buyindiadatabase","root","");
+		
+	             	String sql="SELECT COUNT(*) FROM users;";
+	              	Statement stmt= con.createStatement();
+		
+	                 ResultSet rs= stmt.executeQuery(sql);
+	     
+	                rs.next();
+	     
+	               int num=rs.getInt(1);
+	     
+	                rs.close();
+	                con.close();
+	               return num;
+		
+		
+               }
+                catch(Exception e) {
+                	 System.out.println(e);
+                 }
+		
+              return 0;
+	
+           }
+
+
+
    
 public int getUserId() {
 	return userId;

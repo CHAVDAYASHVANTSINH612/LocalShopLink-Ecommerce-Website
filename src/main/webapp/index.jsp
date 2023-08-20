@@ -1,7 +1,7 @@
    <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="javax.servlet.http.*" 
+    pageEncoding="ISO-8859-1" import="javax.servlet.http.*, com.daoJDBC.* , java.util.* , java.io.* , java.sql.* " 
     
-    %>  
+    %>
    
     
  <!DOCTYPE html>
@@ -12,12 +12,19 @@
         <title>LocalShopLink</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./index.css">
+        
+        
+        <link rel="stylesheet" type="text/css" href="./index.css">
+        
+        <style>
+        <%@include file="./index.css" %>
+        
+        </style>
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
-        <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+        
 
       </head>
       <body>
@@ -25,7 +32,9 @@
         
         <%@include file="navbar.jsp" %>
 
+
        <div class="container-fluid">
+       
         <div id="carouselExampleCaptions" class="carousel slide carousel-slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
               <button  type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -61,6 +70,105 @@
           </div>
         </div>
      
+     
+     
+   
+     <div class="container">
+       <div class="row1"  >
+          <%
+          
+             
+            ProductDAO p = new ProductDAO();
+            ArrayList<ProductDAO> list; 
+        
+         //   ArrayList<ProductDAO> list=(ArrayList<ProductDAO>)session.getAttribute("productList");
+         
+          
+          String  category=request.getParameter("category");   //
+          String searchBox = request.getParameter("searchBox");
+  // product by category   
+         if( !(category==null) ){
+        	 
+             list =  p.getProducts(Integer.parseInt(category));
+         
+         }
+    
+         
+       else  if( !(searchBox==null) ){
+          	 
+                  list =  p.getProducts(searchBox);
+           
+           }
+           else{
+        	   
+          	      list =  p.getProducts();
+          	 
+           }
+            
+          %>
+        
+            
+            <% if(list==null){
+            	response.sendRedirect("index.jsp");
+            	return;
+            }
+            else{
+            	
+            for(ProductDAO product:list){
+            	
+        	 %>
+        	<div class="card1" >
+        	   
+        	   
+      <!--  image code --> 
+        	   <%
+        	     String productPhoto = product.getBase64EncodedImage();
+        	   if(productPhoto!=null){
+        	   
+        	   %>
+        	 
+              
+              <img id="productPhoto" src="data:image/png;base64,<%= productPhoto %>"  style="height:45%; padding:5px; width:90%;"/>
+              <hr style="width:100%; margin-bottom:0px">
+        
+              
+             <%   
+             
+            
+             
+             } %>
+             
+                <h6 id="productName"><%= product.getProductName() %></h6>
+               
+               
+            <% int price= (int)(product.getProductPrice() - 0.01*product.getProductDiscount()*product.getProductPrice() ) ; %>
+                         
+               
+               <div id="priceAndDiscount"> 
+                    <div id="price"><h5> &#8377 <%= price %></h5></div>  &nbsp &nbsp
+                    
+                    <% int savedRs= product.getProductPrice()- price ;%>
+                
+                   <div id="discount"><%= product.getProductDiscount()+"% off " %></div>
+              </div>    
+              
+              <div id="buyNowSaveRs">
+                    <div id="buyNow"> Buy Now</div>
+                   <div id=saveRs> Save &#8377 <%= savedRs %></div>
+                    
+            </div>
+                
+             </div>   <!-- card div end -->
+          <%}
+            
+            }
+            %>
+          
+        
+        
+           </div>
+           
+           </div>
 
 
       </body>

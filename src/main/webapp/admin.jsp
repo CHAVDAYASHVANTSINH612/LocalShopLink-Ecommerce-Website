@@ -1,16 +1,17 @@
 
 
 <!-- check if user/admin is loged in or  not -->
-<%@page import="com.daoJDBC.*" %>
+<%@page import="com.daoJDBC.* , java.util.* , java.io.*" %>
+
 
 <%
 
-   UserDAO user= (UserDAO)session.getAttribute("user");
-if(user==null){
-	session.setAttribute("failMessage","login first then access that page");
-	response.sendRedirect("login.jsp");
-	return;
-}
+ //  UserDAO user= (UserDAO)session.getAttribute("user");
+//if(user==null){
+//	session.setAttribute("failMessage","login first then access that page");
+//	response.sendRedirect("login.jsp");
+//	return;
+//}
 
 %>
 
@@ -48,35 +49,7 @@ if(user==null){
 <div class="container">
               <div class="container text-center">
               
-                  <%
-                     String successCategory=(String)session.getAttribute("successCategory");
-                    if(successCategory!=null){
-        	
-             	  %>
-        	
-        	<h4 style="color:green"><%= successCategory %></h4>
-        	
-                <% 
-        	
-          	session.removeAttribute("successCategory");
-             }
-        
-                %>
-        
-        <!-- fail msg -->
-            <%
-               String failCategory=(String)session.getAttribute("failCategory");
-               if(failCategory != null){
-        	
-        	%>
-        	
-        	<h4 style="color:red"><%= failCategory %></h4>
-        	
-           <% 
-        	 session.removeAttribute("failCategory");
-              }
-        
-            %>
+                 <%@include file="SuccessFailMessage.jsp" %>
               
               </div>
  
@@ -84,19 +57,27 @@ if(user==null){
             <div class="card1"   >
             <img alt="users.png" src="./imgs/admin_imgs/team.png" style="width:98%; height:75%">
                 <h2>User Count</h2>
-                <p>1000</p>
+                <% UserDAO u2= new UserDAO();%>
+                <p><%=u2.getNumOfUsers() %></p>
             </div>
             <div class="card1">
             <img alt="users.png" src="./imgs/admin_imgs/cat5.png" style="width:98%">
             <br>
              
                 <h2>Categories</h2>
-                <p>50</p>
+                <% CategoryDAO c3= new CategoryDAO();%>
+                <p><%=c3.getNumOfCategories() %></p>
             </div>
             <div class="card1">
             <img alt="users.png" src="./imgs/admin_imgs/orders1.png" style="width:98%">
            
                 <h2>Orders</h2>
+                <p>500</p>
+            </div>
+            <div class="card1">
+            <img alt="users.png" src="./imgs/admin_imgs/cubes (1).png" style="width:98%">
+           
+                <h2>products</h2>
                 <p>500</p>
             </div>
         </div>
@@ -116,26 +97,28 @@ if(user==null){
     
 
 <!-- Modal for add category-->
-<div class="modal fade" id="add-category-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Fill Category Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal fade" id="add-category-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Fill Category Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="AddCategoryORProduct" method="post">
         
              <div class="form-group">
-                 <input name="WhatToAdd" type="hidden" value="AddCategory">  <!--  for checking it is to add category or product -->
-                  <label for="cat-name">Category name:</label>
-                 <input name="categoryName" id="cat-name" type="text" class="form-control" placeholder="">
+             
+                 <input name="WhatToAdd" type="hidden" value="AddCategory" >  <!--  for checking it is to add category or product -->
+                  
+                  <label for="cat-name">Category name:</label> <span style="color: red; font-size: 20px;">*</span>
+                 <input name="categoryName" id="cat-name" type="text" class="form-control" placeholder="" required>
              <br> <br>
-                    <label for="cat-desc">Category description:</label>
-                    <textarea name="categoryDescription" id="cat-desc" rows="3" cols="30" class="form-control" placeholder=""></textarea>
+                    <label for="cat-desc">Category description:</label> <span style="color: red; font-size: 20px;">*</span>
+                    <textarea name="categoryDescription" id="cat-desc" rows="3" cols="30" class="form-control" placeholder="" required></textarea>
                    
                    <div class="container text-center">
-                      <input class="btn btn-primary" type="submit" >Add Category</button>
+                      <input class="btn btn-primary" type="submit" value="Add Category" >
                    </div>
              
              </div>
@@ -153,16 +136,86 @@ if(user==null){
 </div>
 
 
-<!-- Modal for add product-->
-<div class="modal fade" id="add-product-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Fill Product Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+<!-- Modal for add product : blow "id" is mapped with "add product" box by  data-bs-target="#add-product-modal"-->
+    <div class="modal fade modal-lg" id="add-product-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Fill Product Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
       <div class="modal-body">
-        ...
+      
+      <!-- form start -->                                   
+         <form action="AddCategoryORProduct" method="post"  enctype="multipart/form-data">
+        
+             <div class="form-group">
+             
+                 <input name="WhatToAdd" type="hidden" value="AddProduct">  <!--  for checking it is to add category or product -->
+                 
+             <!--input name -->     
+                  <label for="prod-name">Product name:</label> <span style="color: red; font-size: 20px;">*</span>
+                 <input name="productName" id="prod-name" type="text" class="form-control" placeholder="" required>
+              <!--input price -->  
+                    <label for="prod-price">Product price ( in Indian Rupee):</label> <span style="color: red; font-size: 20px;">*</span>
+                     <input type="number" id="prod-price" name="productPrice" class="form-control" required>
+                     
+                <!--input description -->     
+                     <label for="prod-desc">Description:</label> <span style="color: red; font-size: 20px;">*</span>
+                     <textarea name="productDescription" id="prod-desc" rows="3" cols="30" class="form-control" placeholder="" required></textarea>
+                   
+                   <br>
+                     
+                   <div style="display:flex">
+                 <!--input Category id -->     
+                       <div style="display:block">
+                       <label for="prod-id">Select Category id :</label> <span style="color: red; font-size: 20px;">*</span>
+                       
+               <!-- fetching all categories From db to select -->       
+                       <select name="productCategoryId" id="prod-name" type="number" class="form-control" style="width:100%" required>
+                   
+                     <%
+                           CategoryDAO c2= new CategoryDAO();
+                           List<CategoryDAO> list = c2.getAllCategories();
+                           
+                       %>
+                   
+                       <option value="0" selected>select</option>
+                       <% for(CategoryDAO c : list ){ %>
+                       
+                       <option value=<%= c.getCategoryId() %>  ><% out.println( c.getCategoryName() ); %></option>
+                       
+                          
+                       <%  } %>
+                       </select>
+                        
+                      </div>
+                      
+                      <!--input quantity -->   
+                      &nbsp &nbsp
+                      <div style="display:block">
+                      <label for="prod-quantity">Quantity available:</label> <span style="color: red; font-size: 20px;">*</span>
+
+                         <input name="productQuantity" id="prod-quantity" type="number" class="form-control" placeholder=""style="width:100%" required>
+                      </div> 
+                       <!--input photo -->  
+                      &nbsp &nbsp
+                       <div style="display:block">
+                      <label for="prod-photo">Upload photo:</label> <span style="color: red; font-size: 20px;">*</span>
+               
+                         <input name="productPhoto" id="prod-photo" type="file" class="form-control" placeholder="" style="width:100%" required>
+                             </div> 
+                       
+                  </div>
+                        
+                   <div class="container text-center">
+                      <input class="btn btn-primary" type="submit" value="Add Product" >
+                   </div>
+             
+             </div>
+        
+        </form>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
